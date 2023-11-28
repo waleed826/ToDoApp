@@ -17,10 +17,7 @@ const DashboardScreen = () => {
         </View>
         <View>
         <Image style={{alignSelf:'center',}} source={require('../images/bicycle.png')} />
-        </View>
-        <Text>
-        Todo  Tasks.
-        </Text>
+        </View>        
       <View style={{backgroundColor:'white',width:width*0.6,padding:10,borderRadius:30}}>
         <View style={{flexDirection:'row',justifyContent:'space-between',margin:10}}>
         <Text>Daily Tasks.</Text>
