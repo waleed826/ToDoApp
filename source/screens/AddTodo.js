@@ -1,12 +1,32 @@
-import { Alert, StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { Alert, StyleSheet, Text, View, Image,RefreshControl } from 'react-native'
+import React, { useState } from 'react'
 import Feather from 'react-native-vector-icons/Feather'
 import CustomInput from '../Components/CustomInput';
 import CustomButton from '../Components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 const AddTodo = ({ navigation }) => {
+    const [loading, setLoading] = useState(true)
+    const [first ,setFirst]=useState('')
+    const [second ,setSecond]=useState('')
+    const [third ,setThird]=useState('')
+    const [event, setEvent] = useState([])
+   
+const saveButton = async () => {
+    const savedContact = [...event, { first, second, third }]
+    console.log("🚀 ~ file: Add.js:27 ~ saveButton ~ savedContact:", savedContact)
+    setEvent(savedContact)
+    // console.log(contact)
+    const jsonValue = await JSON.stringify(event);
+    await AsyncStorage.setItem('my-key', jsonValue);
+    console.log("🚀 ~ file: Add.js:38 ~ storeData ~ my:", jsonValue)
+    navigation.navigate('Dasboard')
+}
+
     return (
+        <KeyboardAwareScrollView refreshControl={<RefreshControl onRefresh={saveButton} refreshing={loading} colors={["black"]}/>}>
         <View style={{ backgroundColor: '#EDEDED', }}>
             <View style={styles.circleOne}>
             </View>
@@ -14,7 +34,7 @@ const AddTodo = ({ navigation }) => {
             </View>
             <View style={{}}>
                 <View style={{ padding: 10 }}>
-                    <Feather name='arrow-left-circle' size={30} style={{}} onPress={() => Alert.alert(pressed)} />
+                    <Feather name='arrow-left-circle' size={30} style={{}} onPress={() => navigation.replace('Dasboard')} />
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center', }}>
                     <Text style={{ fontWeight: 500, fontSize: 20, color: 'black',padding:10 }}>
@@ -25,13 +45,16 @@ const AddTodo = ({ navigation }) => {
                 </View>
             </View>
             <View>
-                <CustomInput color={'white'} />
-                <CustomInput color={'white'} />
+                <CustomInput color={'white'} onChangeText={setFirst} />
+                <CustomInput color={'white'} onChangeText={setSecond} />
 
-                <CustomInput color={'white'} />
-                <CustomButton title={'Add to list'} color={'#55847A'} onPress={() => Alert.alert('pressed')} />
+                <CustomInput color={'white'} onChangeText={setThird} />
+                <CustomButton title={'Add to list'} color={'#55847A'} 
+                onPress={saveButton}
+                />
             </View>
         </View>
+        </KeyboardAwareScrollView>
     )
 }
 

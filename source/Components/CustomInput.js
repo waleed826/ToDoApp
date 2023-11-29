@@ -10,7 +10,7 @@ const CustomInput = (props) => {
     maxLength={props?.length}
     keyboardType={props?.keyboardType}
     placeholderTextColor={'black'}
-    style={{width:'70%',paddding:10}}
+    style={{width:'70%',padding:10}}
     secureTextEntry={props.secureTextEntry}
     onChangeText={props.onChangeText}
     />
