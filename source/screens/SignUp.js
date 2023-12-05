@@ -19,20 +19,20 @@ const SignUp = ({navigation}) => {
                 </View>
                 <View style={styles.circleTwo}>
                 </View>
-                <View style={{ flex: 0.8, }}>
-                    <View style={{ padding: 10 }}>
+                <View style={{ }}>
+                    <View style={{ }}>
                         <Feather name='arrow-left-circle' size={30} style={{ top: 47 }} onPress={()=>navigation.replace('Home')} />
                     </View>
-                    <View style={{ flex: 0.8, alignItems: 'center', justifyContent: 'center', top: 40 }}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center',top:50  }}>
                         <Text style={{ fontWeight: 500, fontSize: 20, color: 'black' }}>
                             Welcome Onboard!
                         </Text>
-                        <Text style={{ color: 'black', color: 'rgba(85, 132, 122, 0.97)', margin: 10 }}>
+                        <Text style={{ color: 'black', color: 'rgba(85, 132, 122, 0.97)', margin: 10,  }}>
                             Let’s help you meet up your task
                         </Text>
                     </View>
                 </View>
-                <View style={{ margin: 10, padding: 10, top: 50 }}>
+                <View style={{ margin: 10, top: 50 }}>
                     <CustomInput placeholder={'Enter your Full Name'} />
                     <CustomInput placeholder={'Enter your Email address '} maxlength={11} keyboardType='email-address' />
                     <CustomInput placeholder={'Enter Password'} color={'white'} onChangeText={setPassword} maxlength={10} secureTextEntry />
