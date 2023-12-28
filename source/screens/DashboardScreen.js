@@ -4,6 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import CheckBox from 'react-native-check-box'
+import CustomModal from '../Components/CustomModal'
 
 const DashboardScreen = ({ navigation }) => {
   useEffect(() => {
@@ -21,6 +22,15 @@ const DashboardScreen = ({ navigation }) => {
   const Pressed = (index) => {
     setShow(index)
   }
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const handleCheckboxChange = (index) => {
+    setCheckedItems((prevCheckedItems) => {
+      const updatedCheckedItems = { ...prevCheckedItems, [index]: !prevCheckedItems[index] };
+      console.log("🚀 ~ file: DashboardScreen.js:29 ~ setCheckedItems ~ updatedCheckedItems:", updatedCheckedItems)
+      return updatedCheckedItems;
+    });
+  };
   const [eventData, setEvents] = useState([])
   const getContacts = async () => {
     const data = await AsyncStorage.getItem('my-key')
@@ -29,6 +39,7 @@ const DashboardScreen = ({ navigation }) => {
     console.log("🚀 ~ file: Contacts.js:20 ~ getContacts ~ contacts:", contacts)
   }
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
+  const [isModalVisible, setModalVisible] = useState(true);
 
   const { height, width } = Dimensions.get('screen')
   return (
@@ -56,7 +67,11 @@ const DashboardScreen = ({ navigation }) => {
       <View style={{ backgroundColor: 'white', width: width * 0.9, padding: 10, borderRadius: 30,margin:15 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
           <Text>Daily Tasks.</Text>
-          <AntDesign name='pluscircle' color='black' size={20} onPress={() => navigation.navigate('add todo')} />
+          {/* <AntDesign name='pluscircle' color='black' size={20} onPress={() => navigation.navigate('add todo')} /> */}
+          <CustomModal
+          // title='Success!'
+           isVisible={isModalVisible}
+          />
         </View>
         <ScrollView style={{ margin: 10 }}>
           {
@@ -67,8 +82,8 @@ const DashboardScreen = ({ navigation }) => {
                   <View style={styles.boxView}>
                     <CheckBox
                       style={styles.boxStyle}
-                      onClick={() => setToggleCheckBox(!toggleCheckBox)}
-                      isChecked={toggleCheckBox}
+                      onClick={() => handleCheckboxChange(index)}
+                      isChecked={checkedItems[index]}
                       checkedCheckBoxColor={'green'}
                       checkBoxColor={'gray'}
                     />
@@ -77,8 +92,8 @@ const DashboardScreen = ({ navigation }) => {
                   <View style={styles.boxView}>
                     <CheckBox
                       style={styles.boxStyle}
-                      onClick={() => setToggleCheckBox(!toggleCheckBox)}
-                      isChecked={toggleCheckBox}
+                      onClick={() => handleCheckboxChange(index)}
+                      isChecked={checkedItems[index]}
                       checkedCheckBoxColor={'green'}
                       checkBoxColor={'gray'}
                     />
@@ -87,8 +102,8 @@ const DashboardScreen = ({ navigation }) => {
                   <View style={styles.boxView}>
                     <CheckBox
                       style={styles.boxStyle}
-                      onClick={() => setToggleCheckBox(!toggleCheckBox)}
-                      isChecked={toggleCheckBox}
+                      onClick={() => handleCheckboxChange(index)}
+                      isChecked={checkedItems[index]}
                       checkedCheckBoxColor={'green'}
                       checkBoxColor={'gray'}
                     />

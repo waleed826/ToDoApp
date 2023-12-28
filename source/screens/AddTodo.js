@@ -24,18 +24,20 @@ const AddTodo = ({ navigation }) => {
 
     const saveButton = async () => {
         const savedContact = [...event, { first, second, third }]
-        console.log("🚀 ~ file: Add.js:27 ~ saveButton ~ savedContact:", savedContact)
+       
 
-        // console.log(contact)
+        
         const jsonValue = JSON.stringify(savedContact);
         await AsyncStorage.setItem('my-key', jsonValue);
-        console.log("🚀 ~ file: Add.js:38 ~ storeData ~ my:", jsonValue)
+       
         setEvent(savedContact)
         navigation.navigate('Dasboard')
     }
 
     return (
-        <KeyboardAwareScrollView refreshControl={<RefreshControl onRefresh={saveButton} refreshing={loading} colors={["black"]} />}>
+        <KeyboardAwareScrollView 
+        // refreshControl={<RefreshControl onRefresh={saveButton} refreshing={loading} colors={["black"]} />}
+        >
             <View style={{ backgroundColor: '#EDEDED', }}>
                 <View style={styles.circleOne}>
                 </View>
